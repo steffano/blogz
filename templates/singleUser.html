@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>welcome to your blog</h1>
+
+{% if posts|length == 0 %}
+<p>you haven't written any posts yet!</p>
+{% else %} 
+    {% for post in posts %}
+    <h3>{{post.title}}</h3>
+    <p>{{post.body}}</p>
+    <p>{{post.owner}}</p>
+    <hr>
+    {% endfor %}
+
+{% endif %}
+
+
+
+
+{% endblock %}
