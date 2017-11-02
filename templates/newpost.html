@@ -1,20 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div>
+    <!-- A wrapper for all the blog posts -->
+    <div class="posts">
+        
 
-<hr />
+        <!-- A single blog post -->
+        <div class="content pure-u-1 pure-u-md-3-4"></div>
+        <section class="post">
+            <h1>write a new blog post</h1>
+        
+            </header>
 
-    <h1>Blog</h1>
-    <form id="blogform" method='post'>
-        <label>
-            New Post Title:
-            <input type="text" name='title' />
-        </label>
-        <label>
-            New Post Body:
-        </label>   
-        <textarea name='body' form="blogform" /></textarea>
-        <input type="submit" value='Submit Post' /> 
-    </form>
+            <div class="post-description">
+                <form id="blogform" method='post'>
+                    <label>
+                        Title:
+                    <input type="text" name='title' />
+                    </label>
+                    <br>
+                    <br>
+                    <label>
+                        Body:
+                    </label>
+                    <br>   
+                    <textarea name='body' form="blogform" /></textarea>
+                    <br>
+                    <input type="submit" value='Submit Post' /> 
+                </form>  
+            </div>
+        </section>
 
 {% endblock %}

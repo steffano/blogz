@@ -2,27 +2,33 @@
 
 {% block content %}
 
-    <hr />
-
     <h1>Blog</h1>
 
-    {% if posts|length == 0 %}
-    <p>No posts yet</p>
-    {% else %}
+    <div class="content pure-u-1 pure-u-md-3-4"></div>
+        {% for post in posts %}
+        <div>
+            <!-- A wrapper for all the blog posts -->
+            <div class="posts">
+                <h1 class="content-subhead">Pinned Post</h1>
 
-            {% for post in posts %}
-            <a href="/post?id={{post.id}}">
-            <h1>
-                {{post.title}}
-            </h1>
-            </a>
-            <p>
-                {{post.body}}
-            </p>
-            <br />
-            <hr />
-            {% endfor %}
+                <!-- A single blog post -->
+                <section class="post">
+                    <header class="post-header">
+                        <h2 class="post-title">{{post.title}}</h2>
 
-    {% endif %}
+                        <p class="post-meta">
+                            By <a href="/blog?id={{post.owner_id}}" class="post-author">{{post.owner.email}}</a>
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>
+                            {{post.body}}
+                        </p>
+                    </div>
+                </section>
+        {% endfor %}
+    </div>
+
 
 {% endblock %}

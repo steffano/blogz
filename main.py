@@ -25,7 +25,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True)
     password = db.Column(db.String(120))
-    tasks = db.relationship('Blog', backref='owner')
+    blogs = db.relationship('Blog', backref='owner')
 
     def __init__(self, email, password):
         self.email = email
@@ -37,10 +37,13 @@ def require_login():
     if request.endpoint not in allowed_routes and 'email' not in session:
         return redirect('/login')
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
-    
-    return render_template('index.html')
+    form_value = request.args.get('id')
+    posts = Blog.query.all()
+    bloggers = User.query.all()
+    return render_template('index.html', user=bloggers, post=posts)
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -67,20 +70,29 @@ def signup():
         # TODO - validate user's data
 
         existing_user = User.query.filter_by(email=email).first()
-        if not existing_user:
+        if len(password) <= 3:
+            flash('please make sure your password is at least 3 characters', 'error')
+        elif not existing_user and password == verify:
             new_user = User(email,password)
             db.session.add(new_user)
             db.session.commit()
             session['email'] = email
             return redirect('/')
+        elif password != verify:
+            flash('please provide matching passwords', 'error')
         else:
-            flash('Duplicate User', 'error')
+            flash('this user already exists', 'error')
 
     return render_template('signup.html')
 
-@app.route('/blog', methods=['POST', 'GET'])
+@app.route('/blog', methods=['GET'])
 def blog():
-    posts = Blog.query.all()
+    # point all links to /blog route, check if owner_id in query string. if not send all. if there is filter by owner_id.
+    form_value = request.args.get('id')
+    if form_value:
+        posts = Blog.query.filter_by(owner_id=form_value)
+    else:
+        posts = Blog.query.all()
     return render_template('blog.html', posts=posts)
     
 @app.route('/post', methods=['GET'])
@@ -107,7 +119,7 @@ def newpost():
 
     return render_template('newpost.html', title=title, body=body)
 
-@app.route('/myblog')
+@app.route('/singleuser', methods=['GET'])
 def myblog():
     owner = User.query.filter_by(email=session['email']).first()
     posts = Blog.query.filter_by(owner=owner).all()

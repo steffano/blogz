@@ -6,13 +6,31 @@
 {% if posts|length == 0 %}
 <p>you haven't written any posts yet!</p>
 {% else %} 
+    <div class="content pure-u-1 pure-u-md-3-4"></div>
     {% for post in posts %}
-    <h3>{{post.title}}</h3>
-    <p>{{post.body}}</p>
-    <p>{{post.owner}}</p>
-    <hr>
-    {% endfor %}
+    <div>
+        <!-- A wrapper for all the blog posts -->
+        <div class="posts">
+            <h1 class="content-subhead">Pinned Post</h1>
 
+            <!-- A single blog post -->
+            <section class="post">
+                <header class="post-header">
+                    <h2 class="post-title"><a href="/post?id={{post.id}}">{{post.title}}</h2>
+
+                    <p class="post-meta">
+                        By <a href="/post?owner_id={{user.blogs}}" class="post-author">{{post.owner.email}}</a>
+                    </p>
+                </header>
+
+                <div class="post-description">
+                    <p>
+                        {{post.body}}
+                    </p>
+                </div>
+            </section>
+    {% endfor %}
+    </div>
 {% endif %}
 
 

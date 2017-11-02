@@ -1,28 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Sign up for Blogz</h1>
-<form action="/signup" method="post">
-    <table>
-        <tr>
-            <td><label for="email">Email</label></td>
-            <td>
-                <input name="email" type="email" value="{{ email }}">
-            </td>
-        </tr>
-        <tr>
-            <td><label for="password">Password</label></td>
-            <td>
-                <input name="password" type="password">
-            </td>
-        </tr>
-        <tr>
-            <td><label for="verify">Verify Password</label></td>
-            <td>
-                <input name="verify" type="password">
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Sign Up">
-</form>
+<div>
+    <!-- A wrapper for all the blog posts -->
+    <div class="posts">
+        
+
+        <!-- A single blog post -->
+        <div class="content pure-u-1 pure-u-md-3-4"></div>
+        <section class="post">
+            <h1>sign up for Blogz</h1>
+            
+            <form action="/signup" method="post">
+                <table>
+                    <tr>
+                        <td><label for="email">Email</label></td>
+                        <td>
+                            <input name="email" type="email" value="{{ email }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password</label></td>
+                        <td>
+                            <input name="password" type="password">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="verify">Verify Password</label></td>
+                        <td>
+                            <input name="verify" type="password">
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="Sign Up">
+            </form>
+
 {% endblock %}
